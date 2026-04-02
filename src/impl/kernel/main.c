@@ -2,6 +2,8 @@
 #include "keyboard.h"
 #include "x86_64/rtc.h"
 #include "x86_64/pmm.h"
+#include "x86_64/vmm.h"
+
 
 typedef struct {
     uint32_t size;
@@ -145,6 +147,10 @@ void kernel_main(multiboot_info_t *mb) {  // fixed: mb must be a parameter
     uint64_t kernel_start = 0x100000;
     uint64_t kernel_size  = (uint64_t)&_kernel_end - kernel_start;
     pmm_reserve_region(kernel_start, kernel_size);  // fixed spelling
+    
+    
+   vmm_init(); 
+
 
     print_clear();
     print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
